@@ -6,6 +6,7 @@ const sessions = require('express-session');
 const flash = require('connect-flash');
 const path = require('path');
 const passport = require('passport');
+const AuthController = require('./API/auth/AuthController');
 require('./database')
 require('./config/passport')
 
@@ -31,6 +32,7 @@ app.use(sessions({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
 // global variables
     app.use((req,res, next)=>{
         res.locals.success_msg =  req.flash('success_msg');
@@ -43,6 +45,8 @@ app.use(flash());
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
 app.use(require('./routes/notes'));
+app.use(require('./API/notes'));
+app.use('/api/auth', AuthController);
 // static files
 app.use(express.static(path.join(__dirname,'public')));
 //server is listening

@@ -1,3 +1,4 @@
+
 const helpers = {};
 
 helpers.isAuthenticated = (req, res, next) => {
